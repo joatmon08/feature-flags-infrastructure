@@ -1,0 +1,34 @@
+version: "3.8"
+    
+services:
+  consul:
+    image: consul:1.8.2
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+    command: "agent -server -bootstrap-expect 1 -ui -client 0.0.0.0"
+  consul-kv:
+    image: consul:1.8.2
+    environment:
+      - CONSUL_HTTP_ADDR=consul:8500
+    volumes:
+      - ./secrets:/secrets
+      - ./scripts:/scripts
+    entrypoint: "/bin/sh"
+    command: "/scripts/kv.sh"
+    depends_on:
+      - "consul"
+  consul-template-cdktf:
+    image: joatmon08/cdktf-consul-template:0.0.14
+    volumes:
+      - ./cdk:/code
+      - ./secrets:/secrets
+    environment:
+      - TF_CLI_CONFIG_FILE=/secrets/.terraformrc
+      - GOOGLE_CREDENTIALS=/secrets/key.json
+    command: "consul-template -config ./consul-template/config.hcl"
+    depends_on:
+      - "consul-kv"
+      - "consul"

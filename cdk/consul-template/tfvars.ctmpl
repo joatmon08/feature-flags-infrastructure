@@ -1,0 +1,9 @@
+
+{
+  "toggles": {
+    "enable_highmem_nodepool": {{ keyOrDefault "cluster/toggles/enable_highmem_nodepool" "false" }},
+    "enable_pubsub_publisher": {{ keyOrDefault "cluster/toggles/enable_pubsub_publisher" "false" }},
+    "enable_workload_identity": {{ keyOrDefault "cluster/toggles/enable_workload_identity" "false" }}
+  },
+  "variables": {{ tree "cluster/variables" | explode | toJSONPretty }}
+}

@@ -1,0 +1,6 @@
+project   = "{{ keyOrDefault "cluster/variables/project" "dev" }}"
+environment = "{{ keyOrDefault "cluster/variables/environment" "nyc1" }}"
+
+enable_workload_identity = {{ keyOrDefault "cluster/toggles/enable_workload_identity" "false" }}
+enable_highmem_nodepool  = {{ keyOrDefault "cluster/toggles/enable_highmem_nodepool" "false" }}
+enable_pubsub_publisher  = {{ keyOrDefault "cluster/toggles/enable_pubsub_publisher" "false" }}

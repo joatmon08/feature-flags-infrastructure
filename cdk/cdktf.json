@@ -1,0 +1,11 @@
+{
+    "language": "typescript",
+    "app": "npm run --silent compile && node main.js",
+    "terraformProviders": [
+        "google@~> 3.34",
+        "google-beta@~> 3.34"
+    ],
+    "terraformModules": [
+        "joatmon08/kubernetes/google@0.4.0"
+    ]
+}
